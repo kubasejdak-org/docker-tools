@@ -2,9 +2,7 @@ FROM ubuntu:24.04
 LABEL maintainer="Kuba Sejdak (kuba.sejdak@gmail.com)"
 
 # Settings.
-ARG USERNAME=builder
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+ARG USERNAME=ubuntu
 
 # Prepare APT for installing packages.
 RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${CONTAINER_TIMEZONE} > /etc/timezone && \
@@ -13,9 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
     apt update && \
     apt upgrade -y && \
     \
-    # Create default user.
-    groupadd --gid ${USER_GID} ${USERNAME} && \
-    useradd --uid ${USER_UID} --gid ${USER_GID} -s /bin/bash -m ${USERNAME} && \
+    # Set default user permissions.
     apt install -y sudo && \
     echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL >> /etc/sudoers.d/$USERNAME && \
     chmod 0440 /etc/sudoers.d/${USERNAME}
