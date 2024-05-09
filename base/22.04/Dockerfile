@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 LABEL maintainer="Kuba Sejdak (kuba.sejdak@gmail.com)"
 
 # Settings.
-ARG USERNAME=builder
+ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
