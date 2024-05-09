@@ -2,8 +2,16 @@ name: Build base Docker images
 
 on: [push]
 
+env:
+  IMAGE_NAME: base
+
 jobs:
   build:
     runs-on: [self-hosted, heavy-build]
+    strategy:
+      matrix:
+        include:
+          - IMAGE_TAG: 22.04
     steps:
-      - run: echo "Hello"
+      - uses: actions/checkout@v4
+      - run: echo "Hello ${IMAGE_NAME}:${IMAGE_TAG}"
