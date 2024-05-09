@@ -16,6 +16,7 @@ jobs:
       matrix:
         include:
           - IMAGE_TAG: 22.04
+          - IMAGE_TAG: 24.04
     steps:
       - uses: actions/checkout@v4
       - name: docker build
