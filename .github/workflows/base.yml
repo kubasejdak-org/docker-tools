@@ -1,0 +1,7 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: [self-hosted, heavy-build]
+    steps:
+      - run: echo "Hello"
