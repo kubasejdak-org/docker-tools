@@ -23,6 +23,7 @@ jobs:
           echo "Building Docker image:"
           echo "    full name : ${IMAGE_REGISTRY}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }}"
 
+          cd ${IMAGE_NAME}/${{ matrix.IMAGE_TAG }}
           docker buildx build --no-cache \
                               --platform ${IMAGE_PLATFORM} \
                               -f ${IMAGE_DOCKERFILE} \
