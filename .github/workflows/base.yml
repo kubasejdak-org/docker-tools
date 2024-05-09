@@ -3,6 +3,7 @@ name: Build base Docker images
 on: [push]
 
 env:
+  IMAGE_REGISTRY: kubasejdak
   IMAGE_NAME: base
 
 jobs:
@@ -14,4 +15,7 @@ jobs:
           - IMAGE_TAG: 22.04
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Hello ${IMAGE_NAME}:${{ matrix.IMAGE_TAG }}"
+      - name: docker build
+        run: |
+          echo "Building Docker image:"
+          echo "    full name        : ${IMAGE_REGISTRY}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }}"
