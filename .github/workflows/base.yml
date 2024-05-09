@@ -1,5 +1,4 @@
-name: example-workflow
-run-name: Build base Docker images
+name: Build base Docker images
 
 on: [push]
 
