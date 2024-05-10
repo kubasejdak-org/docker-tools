@@ -62,4 +62,4 @@ jobs:
           docker load -i ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
           rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
       - name: docker login
-        run: docker login -u ${{ vars.DOCKER_USER }} -p ${{ vars.DOCKER_PASSWORD }} ${{ vars.DOCKER_REGISTRY }}
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }} ${{ vars.DOCKER_REGISTRY }}
