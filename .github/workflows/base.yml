@@ -43,6 +43,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-          path: /home/github-runner/actions-runner/_work/docker-tools/docker-tools/${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+          path: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
       - name: cleanup
         run: rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
