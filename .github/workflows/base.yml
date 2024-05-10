@@ -30,3 +30,9 @@ jobs:
                               -t ${{ vars.DOCKER_REGISTRY }}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }} \
                               ${EXTRA_BUILD_ARGS} \
                               .
+      - name: docker save
+        run: docker save -o ${IMAGE_NAME}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${IMAGE_NAME}-${{ matrix.IMAGE_TAG }}
+          path: ${IMAGE_NAME}-${{ matrix.IMAGE_TAG }}
