@@ -18,6 +18,8 @@ jobs:
           - IMAGE_TAG: 24.04
     steps:
       - uses: actions/checkout@v4
+      - name: install buildx platforms
+        run: docker run --privileged --rm tonistiigi/binfmt --install all
       - name: docker build
         run: |
           echo "Building Docker image:"
