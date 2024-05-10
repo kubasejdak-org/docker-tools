@@ -3,7 +3,6 @@ name: Build base Docker images
 on: [push]
 
 env:
-  IMAGE_REGISTRY: kubasejdak
   IMAGE_NAME: base
   IMAGE_PLATFORM: linux/amd64
   IMAGE_DOCKERFILE: Dockerfile
@@ -28,6 +27,6 @@ jobs:
           docker buildx build --no-cache \
                               --platform ${IMAGE_PLATFORM} \
                               -f ${IMAGE_DOCKERFILE} \
-                              -t ${IMAGE_REGISTRY}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }} \
+                              -t ${{ vars.DOCKER_REGISTRY }}/${IMAGE_NAME}:${{ matrix.IMAGE_TAG }} \
                               ${EXTRA_BUILD_ARGS} \
                               .
