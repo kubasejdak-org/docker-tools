@@ -37,11 +37,26 @@ jobs:
                               ${{ env.EXTRA_BUILD_ARGS }} \
                               .
       - name: docker save
-        run: |
-          docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
+        run: docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
           path: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
       - name: cleanup
         run: rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+
+  deploy:
+    runs-on: [self-hosted, heavy-build]
+    strategy:
+      matrix:
+        include:
+          - IMAGE_TAG: 22.04
+          - IMAGE_TAG: 24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+      - name: docker load
+        run: |
+          docker load -i ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+          rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
