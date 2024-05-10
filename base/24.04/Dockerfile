@@ -13,7 +13,7 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
     \
     # Set default user permissions.
     apt install -y sudo && \
-    echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL >> /etc/sudoers.d/$USERNAME && \
+    echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL >> /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME}
 
 USER ${USERNAME}

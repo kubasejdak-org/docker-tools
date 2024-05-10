@@ -17,7 +17,7 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
     groupadd --gid ${USER_GID} ${USERNAME} && \
     useradd --uid ${USER_UID} --gid ${USER_GID} -s /bin/bash -m ${USERNAME} && \
     apt install -y sudo && \
-    echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL >> /etc/sudoers.d/$USERNAME && \
+    echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL >> /etc/sudoers.d/${USERNAME} && \
     chmod 0440 /etc/sudoers.d/${USERNAME}
 
 USER ${USERNAME}
