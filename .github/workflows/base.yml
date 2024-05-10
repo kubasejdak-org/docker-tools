@@ -39,9 +39,6 @@ jobs:
       - name: docker save
         run: |
           docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
-          pwd
-          ls -al
-          echo ${GITHUB_WORKSPACE}
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
