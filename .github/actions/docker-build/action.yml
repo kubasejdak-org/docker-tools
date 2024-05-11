@@ -18,7 +18,7 @@ runs:
   steps:
     - name: aaaa
       shell: bash
-      run: "Hello from template"
+      run: echo "Hello from template"
     # - uses: actions/checkout@v4
     # - name: docker build
     #   run: |
