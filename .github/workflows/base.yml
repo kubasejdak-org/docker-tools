@@ -22,51 +22,27 @@ jobs:
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
           extraBuildArgs: --pull
-  #     - name: docker build
-  #       run: |
-  #         echo "Building Docker image:"
-  #         echo "    full name        : ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}"
-  #         echo "    platform         : ${{ env.IMAGE_PLATFORM }}"
-  #         echo "    workdir          : ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}"
-  #         echo "    dockerfile       : ${{ env.IMAGE_DOCKERFILE }}"
-  #         echo "    extra build args : ${{ env.EXTRA_BUILD_ARGS }}"
 
-  #         cd ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
-  #         docker buildx build --no-cache \
-  #                             --platform ${{ env.IMAGE_PLATFORM }} \
-  #                             -f ${{ env.IMAGE_DOCKERFILE }} \
-  #                             -t ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }} \
-  #                             ${{ env.EXTRA_BUILD_ARGS }} \
-  #                             .
-  #     - name: docker save
-  #       run: docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
-  #     - uses: actions/upload-artifact@v4
-  #       with:
-  #         name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-  #         path: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-  #     - name: cleanup
-  #       run: rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-
-  # deploy:
-  #   runs-on: [self-hosted, heavy-build]
-  #   needs: build
-  #   strategy:
-  #     matrix:
-  #       include:
-  #         - IMAGE_TAG: 22.04
-  #         - IMAGE_TAG: 24.04
-  #   steps:
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-  #     - name: docker load
-  #       run: |
-  #         docker load -i ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-  #         rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-  #     - name: docker login
-  #       uses: docker/login-action@v3
-  #       with:
-  #         username: ${{ secrets.DOCKER_USER }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
+  deploy:
+    runs-on: [self-hosted, heavy-build]
+    needs: build
+    strategy:
+      matrix:
+        include:
+          - IMAGE_TAG: 22.04
+          - IMAGE_TAG: 24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+      - name: docker load
+        run: |
+          docker load -i ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+          rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+      - name: docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
   #     - name: docker push
   #       run: docker push ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
