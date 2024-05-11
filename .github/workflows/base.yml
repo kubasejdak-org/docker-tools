@@ -26,7 +26,7 @@ jobs:
 
   deploy:
     runs-on: [self-hosted, heavy-build]
-    # if: github.ref_name == 'main'
+    if: github.ref_name == 'main'
     needs: build
     strategy:
       matrix:
