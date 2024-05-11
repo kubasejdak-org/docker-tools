@@ -20,6 +20,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: install buildx platforms
         run: docker run --privileged --rm tonistiigi/binfmt --install all
+      - name: show build info
+        run: |
+          echo "Building Docker image:"
+          echo "    full name        : ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}"
+          echo "    platform         : ${{ env.IMAGE_PLATFORM }}"
+          echo "    workdir          : ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}"
+          echo "    dockerfile       : ${{ env.IMAGE_DOCKERFILE }}"
+          echo "    extra build args : ${{ env.EXTRA_BUILD_ARGS }}"
       - name: docker build
         uses: docker/build-push-action@v5
         with:
