@@ -1,13 +1,13 @@
-name: Build base Docker images
+name: Build Docker images with doxygen
 
 on: [push]
 
 env:
-  IMAGE_NAME: base
+  IMAGE_NAME: doxygen
 
 jobs:
   build:
-    name: build base
+    name: build doxygen
     runs-on: [self-hosted, heavy-build]
     strategy:
       fail-fast: false
@@ -24,7 +24,7 @@ jobs:
           extraBuildArgs: --pull
 
   deploy:
-    name: deploy base
+    name: deploy doxygen
     runs-on: [self-hosted, heavy-build]
     if: github.ref_name == 'main'
     needs: build
