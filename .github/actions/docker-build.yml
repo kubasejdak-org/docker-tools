@@ -1,0 +1,46 @@
+name: Build Docker image
+
+inputs:
+  repository:
+    description: Docker repository name
+    required: false
+    default: kubasejdak
+  image:
+    description: Docker image name
+    required: true
+  tag:
+    description: Docker image tag
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: aaaa
+       run: "Hello from template"
+    # - uses: actions/checkout@v4
+    # - name: docker build
+    #   run: |
+    #     echo "Building Docker image:"
+    #     echo "    full name        : ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}"
+    #     echo "    platform         : ${{ env.IMAGE_PLATFORM }}"
+    #     echo "    workdir          : ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}"
+    #     echo "    dockerfile       : ${{ env.IMAGE_DOCKERFILE }}"
+    #     echo "    extra build args : ${{ env.EXTRA_BUILD_ARGS }}"
+
+    #     cd ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
+    #     docker buildx build --no-cache \
+    #                         --platform ${{ env.IMAGE_PLATFORM }} \
+    #                         -f ${{ env.IMAGE_DOCKERFILE }} \
+    #                         -t ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }} \
+    #                         ${{ env.EXTRA_BUILD_ARGS }} \
+    #                         .
+    # - name: install buildx platforms
+    #   run: docker run --privileged --rm tonistiigi/binfmt --install all
+    # - name: docker save
+    #   run: docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
+    # - uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+    #     path: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+    # - name: cleanup
+    #   run: rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
