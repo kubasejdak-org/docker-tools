@@ -23,6 +23,7 @@ jobs:
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
+          workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
   #     - uses: actions/checkout@v4
   #     - name: install buildx platforms
   #       run: docker run --privileged --rm tonistiigi/binfmt --install all

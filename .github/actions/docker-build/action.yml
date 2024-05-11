@@ -19,7 +19,7 @@ inputs:
   workdir:
     description: Workdir for docker build command
     required: false
-    default: ${{ inputs.image }}:${{ inputs.tag }}
+    default: .
   dockerfile:
     description: Dockerfile to use
     required: false
