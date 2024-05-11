@@ -18,6 +18,7 @@ jobs:
           - IMAGE_TAG: 24.04
     steps:
       - run: echo "Hello world"
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/docker-build
   #     - uses: actions/checkout@v4
   #     - name: install buildx platforms
