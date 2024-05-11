@@ -54,11 +54,13 @@ runs:
                             -t ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }} \
                             ${{ inputs.extraBuildArgs }} \
                             .
-    # - name: docker save
-    #   run: docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
+    - name: docker save
+      shell: bash
+      run: docker save -o ${{ inputs.image }}-${{ inputs.tag }} ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}
     # - uses: actions/upload-artifact@v4
     #   with:
-    #     name: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-    #     path: ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
-    # - name: cleanup
-    #   run: rm ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }}
+    #     name: ${{ inputs.image }}-${{ inputs.tag }}
+    #     path: ${{ inputs.image }}-${{ inputs.tag }}
+    - name: cleanup
+      shell: bash
+      run: rm ${{ inputs.image }}-${{ inputs.tag }}
