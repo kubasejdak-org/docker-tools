@@ -1,0 +1,66 @@
+name: Build Docker image
+description: Build Docker image
+
+inputs:
+  repository:
+    description: Docker repository name
+    required: false
+    default: kubasejdak
+  image:
+    description: Docker image name
+    required: true
+  tag:
+    description: Docker image tag
+    required: true
+  platform:
+    description: Docker buildx platform to use
+    required: false
+    default: linux/amd64
+  workdir:
+    description: Workdir for docker build command
+    required: false
+    default: .
+  dockerfile:
+    description: Dockerfile to use
+    required: false
+    default: Dockerfile
+  extraBuildArgs:
+    description: Extra argumnts to pass to docker build command
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: show build info
+      shell: bash
+      run: |
+        echo "Building Docker image:"
+        echo "    full name        : ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}"
+        echo "    platform         : ${{ inputs.platform }}"
+        echo "    workdir          : ${{ inputs.workdir }}"
+        echo "    dockerfile       : ${{ inputs.dockerfile }}"
+        echo "    extra build args : ${{ inputs.extraBuildArgs }}"
+    - name: install buildx platforms
+      shell: bash
+      run: docker run --privileged --rm tonistiigi/binfmt --install all
+    - name: docker build
+      shell: bash
+      run: |
+        cd ${{ inputs.workdir }}
+        docker buildx build --no-cache \
+                            --platform ${{ inputs.platform }} \
+                            -f ${{ inputs.dockerfile }} \
+                            -t ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }} \
+                            ${{ inputs.extraBuildArgs }} \
+                            .
+    - name: docker save
+      shell: bash
+      run: docker save -o ${{ inputs.image }}-${{ inputs.tag }} ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.image }}-${{ inputs.tag }}
+        path: ${{ inputs.image }}-${{ inputs.tag }}
+    - name: cleanup
+      shell: bash
+      run: rm ${{ inputs.image }}-${{ inputs.tag }}
