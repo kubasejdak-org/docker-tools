@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: docker build
-        uses: .github/actions/docker-build
+        uses: ./.github/actions/docker-build
   #     - uses: actions/checkout@v4
   #     - name: install buildx platforms
   #       run: docker run --privileged --rm tonistiigi/binfmt --install all
