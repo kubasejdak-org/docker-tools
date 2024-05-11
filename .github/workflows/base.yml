@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: [self-hosted, heavy-build]
     strategy:
+      fail-fast: false
       matrix:
         include:
           - IMAGE_TAG: 22.04
