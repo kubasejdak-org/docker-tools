@@ -44,15 +44,16 @@ runs:
     - name: install buildx platforms
       shell: bash
       run: docker run --privileged --rm tonistiigi/binfmt --install all
-    # - name: docker build
-    #   run: |
-    #     cd ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
-    #     docker buildx build --no-cache \
-    #                         --platform ${{ env.IMAGE_PLATFORM }} \
-    #                         -f ${{ env.IMAGE_DOCKERFILE }} \
-    #                         -t ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }} \
-    #                         ${{ env.EXTRA_BUILD_ARGS }} \
-    #                         .
+    - name: docker build
+      shell: bash
+      run: |
+        cd ${{ inputs.workdir }}
+        docker buildx build --no-cache \
+                            --platform ${{ inputs.platform }} \
+                            -f ${{ inputs.dockerfile }} \
+                            -t ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }} \
+                            ${{ inputs.extraBuildArgs }} \
+                            .
     # - name: docker save
     #   run: docker save -o ${{ env.IMAGE_NAME }}-${{ matrix.IMAGE_TAG }} ${{ vars.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.IMAGE_TAG }}
     # - uses: actions/upload-artifact@v4

@@ -4,9 +4,6 @@ on: [push]
 
 env:
   IMAGE_NAME: base
-  IMAGE_PLATFORM: linux/amd64
-  IMAGE_DOCKERFILE: Dockerfile
-  EXTRA_BUILD_ARGS: --pull
 
 jobs:
   build:
@@ -24,6 +21,7 @@ jobs:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
+          extraBuildArgs: --pull
   #     - name: docker build
   #       run: |
   #         echo "Building Docker image:"
