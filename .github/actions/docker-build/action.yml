@@ -1,4 +1,5 @@
 name: Build Docker image
+description: Build Docker image
 
 inputs:
   repository:
@@ -16,7 +17,8 @@ runs:
   using: composite
   steps:
     - name: aaaa
-       run: "Hello from template"
+      shell: bash
+      run: "Hello from template"
     # - uses: actions/checkout@v4
     # - name: docker build
     #   run: |
