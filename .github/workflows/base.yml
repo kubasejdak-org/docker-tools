@@ -20,6 +20,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: docker build
         uses: ./.github/actions/docker-build
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tag: ${{ matrix.IMAGE_TAG }}
   #     - uses: actions/checkout@v4
   #     - name: install buildx platforms
   #       run: docker run --privileged --rm tonistiigi/binfmt --install all
