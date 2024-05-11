@@ -6,7 +6,8 @@ env:
   IMAGE_NAME: base
 
 jobs:
-  build-base:
+  build:
+    name: build base
     runs-on: [self-hosted, heavy-build]
     strategy:
       fail-fast: false
@@ -22,7 +23,8 @@ jobs:
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
           extraBuildArgs: --pull
 
-  deploy-base:
+  deploy:
+    name: deploy base
     runs-on: [self-hosted, heavy-build]
     if: github.ref_name == 'main'
     needs: build
