@@ -26,6 +26,7 @@ jobs:
 
   deploy:
     runs-on: [self-hosted, heavy-build]
+    # if: github.ref_name == 'main'
     needs: build
     strategy:
       matrix:
@@ -36,5 +37,7 @@ jobs:
       - name: docker push
         uses: ./.github/actions/docker-push
         with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}

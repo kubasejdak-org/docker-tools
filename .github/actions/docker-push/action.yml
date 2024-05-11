@@ -2,6 +2,12 @@ name: Push Docker image
 description: Push Docker image
 
 inputs:
+  username:
+    description: Docker repository username
+    required: true
+  password:
+    description: Docker repository password
+    required: true
   repository:
     description: Docker repository name
     required: false
@@ -27,8 +33,8 @@ runs:
     - name: docker login
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
     - name: docker push
       shell: bash
       run: docker push ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}
