@@ -6,14 +6,12 @@ env:
   IMAGE_NAME: base
 
 jobs:
-  build:
+  build-base:
     runs-on: [self-hosted, heavy-build]
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - IMAGE_TAG: 22.04
-          - IMAGE_TAG: 24.04
+        IMAGE_TAG: [22.04, 24.04]
     steps:
       - uses: actions/checkout@v4
       - name: docker build
@@ -24,15 +22,13 @@ jobs:
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
           extraBuildArgs: --pull
 
-  deploy:
+  deploy-base:
     runs-on: [self-hosted, heavy-build]
     if: github.ref_name == 'main'
     needs: build
     strategy:
       matrix:
-        include:
-          - IMAGE_TAG: 22.04
-          - IMAGE_TAG: 24.04
+        IMAGE_TAG: [22.04, 24.04]
     steps:
       - name: docker push
         uses: ./.github/actions/docker-push
