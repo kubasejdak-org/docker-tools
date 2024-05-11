@@ -12,13 +12,35 @@ inputs:
   tag:
     description: Docker image tag
     required: true
+  platform:
+    description: Docker buildx platform to use
+    required: false
+    default: linux/amd64
+  workdir:
+    description: Workdir for docker build command
+    required: false
+    default: ${{ inputs.image }}:${{ inputs.tag }}
+  dockerfile:
+    description: Dockerfile to use
+    required: false
+    default: Dockerfile
+  extraBuildArgs:
+    description: Extra argumnts to pass to docker build command
+    required: false
+    default: ""
 
 runs:
   using: composite
   steps:
-    - name: aaaa
+    - name: show build info
       shell: bash
-      run: echo "Hello from template"
+      run: |
+        echo "Building Docker image:"
+        echo "    full name        : ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}"
+        echo "    platform         : ${{ inputs.platform }}"
+        echo "    workdir          : ${{ inputs.workdir }}"
+        echo "    dockerfile       : ${{ inputs.dockerfile }}"
+        echo "    extra build args : ${{ inputs.extraBuildArgs }}"
     # - uses: actions/checkout@v4
     # - name: docker build
     #   run: |

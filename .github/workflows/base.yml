@@ -17,9 +17,9 @@ jobs:
           - IMAGE_TAG: 22.04
           - IMAGE_TAG: 24.04
     steps:
-      - run: echo "Hello world"
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/docker-build
+      - name: docker build
+        uses: .github/actions/docker-build
   #     - uses: actions/checkout@v4
   #     - name: install buildx platforms
   #       run: docker run --privileged --rm tonistiigi/binfmt --install all
