@@ -16,12 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: docker build
-        uses: ./.github/actions/docker-build
+        uses: ./.github/actions/docker-build-base
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
-          extraBuildArgs: --pull
 
   deploy:
     name: deploy base

@@ -1,0 +1,53 @@
+name: Build Docker base image
+description: Build Docker base image
+
+inputs:
+  repository:
+    description: Docker repository name
+    required: false
+    default: kubasejdak
+  image:
+    description: Docker image name
+    required: true
+  tag:
+    description: Docker image tag
+    required: true
+  platform:
+    description: Docker buildx platform to use
+    required: false
+    default: linux/amd64
+  workdir:
+    description: Workdir for docker build command
+    required: false
+    default: .
+  dockerfile:
+    description: Dockerfile to use
+    required: false
+    default: Dockerfile
+  extraBuildArgs:
+    description: Extra argumnts to pass to docker build command
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: docker build
+      uses: ./.github/actions/docker-build
+      with:
+        repository: ${{ inputs.repository }}
+        image: ${{ inputs.image }}
+        tag: ${{ inputs.tag }}
+        platform: ${{ inputs.platform }}
+        workdir: ${{ inputs.workdir }}
+        dockerfile: ${{ inputs.dockerfile }}
+        extraBuildArgs: ${{ inputs.extraBuildArgs }} --pull
+    - name: docker save
+      shell: bash
+      run: docker save -o ${{ inputs.image }}-${{ inputs.tag }} ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}
+    - uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.image }}-${{ inputs.tag }}
+        path: ${{ inputs.image }}-${{ inputs.tag }}
+    - name: cleanup
+      shell: bash
+      run: rm ${{ inputs.image }}-${{ inputs.tag }}
