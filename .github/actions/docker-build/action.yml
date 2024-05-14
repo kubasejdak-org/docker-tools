@@ -27,7 +27,6 @@ inputs:
   extraBuildArgs:
     description: Extra argumnts to pass to docker build command
     required: false
-    default: ""
 
 runs:
   using: composite
@@ -54,13 +53,3 @@ runs:
                             -t ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }} \
                             ${{ inputs.extraBuildArgs }} \
                             .
-    - name: docker save
-      shell: bash
-      run: docker save -o ${{ inputs.image }}-${{ inputs.tag }} ${{ inputs.repository }}/${{ inputs.image }}:${{ inputs.tag }}
-    - uses: actions/upload-artifact@v4
-      with:
-        name: ${{ inputs.image }}-${{ inputs.tag }}
-        path: ${{ inputs.image }}-${{ inputs.tag }}
-    - name: cleanup
-      shell: bash
-      run: rm ${{ inputs.image }}-${{ inputs.tag }}
