@@ -12,18 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #IMAGE_TAG: [22.04, 24.04]
-        IMAGE_TAG: [22.04]
+        IMAGE_TAG: [22.04, 24.04]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
-          repository: kubasejdak-org/action-docker-build
-          path: action-docker-build
-      - name: aa
-        run: ls -al action-docker-build
+          repository: kubasejdak-org/github-actions
+          path: actions
       - name: docker build
-        uses: ./action-docker-build
+        uses: ./actions/docker-build-base
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
