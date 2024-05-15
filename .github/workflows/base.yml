@@ -23,7 +23,7 @@ jobs:
       - name: aa
         run: ls -al action-docker-build
       - name: docker build
-        uses: ./action-docker-build/action
+        uses: ./action-docker-build
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
