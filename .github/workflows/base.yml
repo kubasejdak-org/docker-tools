@@ -19,6 +19,13 @@ jobs:
         with:
           repository: kubasejdak-org/github-actions
           path: actions
+      - name: bbb
+        run: |
+          pwd
+          ls -al
+          cd actions
+          pwd
+          ls -al
       - name: docker build
         uses: ./actions/docker-build-base
         with:
