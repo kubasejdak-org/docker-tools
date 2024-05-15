@@ -16,25 +16,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: docker build
-        uses: kubasejdak-org/github-actions/docker-build-base@263debb003585c0bb9df0bb183ccfcf4cbffa25c
+        uses: kubasejdak-org/github-actions/docker-build-base@v1
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
 
-  # deploy:
-  #   name: deploy base
-  #   runs-on: [self-hosted, heavy-build]
-  #   if: github.ref_name == 'main'
-  #   needs: build
-  #   strategy:
-  #     matrix:
-  #       IMAGE_TAG: [22.04, 24.04]
-  #   steps:
-  #     - name: docker push
-  #       uses: kubasejdak-org/github-actions/docker-push@263debb003585c0bb9df0bb183ccfcf4cbffa25c
-  #       with:
-  #         username: ${{ secrets.DOCKER_USER }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
-  #         image: ${{ env.IMAGE_NAME }}
-  #         tag: ${{ matrix.IMAGE_TAG }}
+  deploy:
+    name: deploy base
+    runs-on: [self-hosted, heavy-build]
+    if: github.ref_name == 'main'
+    needs: build
+    strategy:
+      matrix:
+        IMAGE_TAG: [22.04, 24.04]
+    steps:
+      - name: docker push
+        uses: kubasejdak-org/github-actions/docker-push@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          image: ${{ env.IMAGE_NAME }}
+          tag: ${{ matrix.IMAGE_TAG }}
