@@ -15,14 +15,8 @@ jobs:
         IMAGE_TAG: [22.04, 24.04]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: kubasejdak-org/github-actions
-          path: actions
-      - name: bbb
-        run: ls -al ./actions/docker-build-base
       - name: docker build
-        uses: ./actions/docker-build-base
+        uses: kubasejdak-org/github-actions/docker-build-base@263debb003585c0bb9df0bb183ccfcf4cbffa25c
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
@@ -38,7 +32,7 @@ jobs:
   #       IMAGE_TAG: [22.04, 24.04]
   #   steps:
   #     - name: docker push
-  #       uses: kubasejdak-org/github-actions/docker-push@main
+  #       uses: kubasejdak-org/github-actions/docker-push@263debb003585c0bb9df0bb183ccfcf4cbffa25c
   #       with:
   #         username: ${{ secrets.DOCKER_USER }}
   #         password: ${{ secrets.DOCKER_PASSWORD }}
