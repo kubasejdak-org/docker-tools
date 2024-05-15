@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: docker build
-        uses: kubasejdak-org/github-actions/docker-build-base@81268441b01fa9d8b884c45f28825ef93dffeaf6
+        uses: kubasejdak-org/github-actions/docker-build-base@5cea00308ead55202e82bf2642d2961de2a63c5f
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
