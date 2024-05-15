@@ -21,9 +21,9 @@ jobs:
           repository: kubasejdak-org/action-docker-build
           path: action-docker-build
       - name: aa
-        run: ls -al
+        run: ls -al action-docker-build
       - name: docker build
-        uses: ./.action-docker-build/action
+        uses: ./action-docker-build/action
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
