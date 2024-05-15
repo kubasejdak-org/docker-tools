@@ -12,29 +12,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        IMAGE_TAG: [22.04, 24.04]
+        #IMAGE_TAG: [22.04, 24.04]
+        IMAGE_TAG: [22.04]
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: kubasejdak-org/action-docker-build
+          path: action-docker-build
+
       - name: docker build
-        uses: kubasejdak-org/action-docker-build@main
+        uses: ./.action-docker-build/action
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
 
-  deploy:
-    name: deploy base
-    runs-on: [self-hosted, heavy-build]
-    if: github.ref_name == 'main'
-    needs: build
-    strategy:
-      matrix:
-        IMAGE_TAG: [22.04, 24.04]
-    steps:
-      - name: docker push
-        uses: kubasejdak-org/github-actions/docker-push@main
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          image: ${{ env.IMAGE_NAME }}
-          tag: ${{ matrix.IMAGE_TAG }}
+  # deploy:
+  #   name: deploy base
+  #   runs-on: [self-hosted, heavy-build]
+  #   if: github.ref_name == 'main'
+  #   needs: build
+  #   strategy:
+  #     matrix:
+  #       IMAGE_TAG: [22.04, 24.04]
+  #   steps:
+  #     - name: docker push
+  #       uses: kubasejdak-org/github-actions/docker-push@main
+  #       with:
+  #         username: ${{ secrets.DOCKER_USER }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
+  #         image: ${{ env.IMAGE_NAME }}
+  #         tag: ${{ matrix.IMAGE_TAG }}
