@@ -1,6 +1,6 @@
 name: Build Docker images with valgrind
 
-on: [push]
+on: [pull_request_review_comment]
 
 env:
   IMAGE_NAME: valgrind
