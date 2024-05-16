@@ -22,11 +22,15 @@ jobs:
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
 
+  build-all-base:
+    runs-on: [self-hosted, heavy-build]
+    needs: build
+
   deploy:
     name: deploy base
     runs-on: [self-hosted, heavy-build]
     if: github.ref_name == 'main'
-    needs: build
+    needs: build-all-base
     strategy:
       matrix:
         IMAGE_TAG: [22.04, 24.04]
