@@ -25,6 +25,8 @@ jobs:
   build-all-valgrind:
     runs-on: [self-hosted, heavy-build]
     needs: build
+    steps:
+      - run: echo "Success"
 
   deploy:
     name: deploy valgrind
