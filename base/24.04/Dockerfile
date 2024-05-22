@@ -18,7 +18,7 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
 
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
-ENV HISTFILE ""
+ENV HISTFILE=""
 ENV USER=${USERNAME}
 
 # Install git and SSH client.
