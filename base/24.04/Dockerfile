@@ -19,6 +19,7 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 ENV HISTFILE ""
+ENV USER=${USERNAME}
 
 # Install git and SSH client.
 RUN sudo apt install -y software-properties-common gnupg && \
