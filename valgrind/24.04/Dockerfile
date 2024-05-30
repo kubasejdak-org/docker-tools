@@ -5,7 +5,8 @@ ARG VALGRIND_VERSION=3.23.0
 ARG VALGRIND_URL=https://sourceware.org/pub/valgrind/valgrind-${VALGRIND_VERSION}.tar.bz2
 
 # Compile valgrind and install libc6-dbg.
-RUN sudo apt install -y wget build-essential gcc && \
+RUN sudo apt update && \
+    sudo apt install -y wget build-essential gcc && \
     wget --no-check-certificate ${VALGRIND_URL} && \
     tar -xf $(basename ${VALGRIND_URL}) && \
     cd valgrind-${VALGRIND_VERSION} && \
