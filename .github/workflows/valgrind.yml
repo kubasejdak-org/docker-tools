@@ -13,6 +13,7 @@ jobs:
   build:
     name: build valgrind
     runs-on: [self-hosted, heavy-build]
+    needs: []
     strategy:
       fail-fast: false
       matrix:
@@ -26,7 +27,7 @@ jobs:
           tag: ${{ matrix.IMAGE_TAG }}
           workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
 
-  build-all-valgrind:
+  check-all-valgrind:
     runs-on: [self-hosted, heavy-build]
     needs: build
     steps:
@@ -36,7 +37,7 @@ jobs:
     name: deploy valgrind
     runs-on: [self-hosted, heavy-build]
     if: github.ref_name == 'main'
-    needs: build-all-valgrind
+    needs: check-all-valgrind
     strategy:
       matrix:
         IMAGE_TAG: [22.04, 24.04]
