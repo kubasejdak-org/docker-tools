@@ -13,6 +13,7 @@ jobs:
   build:
     name: build doxygen
     runs-on: [self-hosted, heavy-build]
+    needs: []
     strategy:
       fail-fast: false
       matrix:
