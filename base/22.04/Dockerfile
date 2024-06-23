@@ -29,7 +29,7 @@ ENV USER=${USERNAME}
 RUN sudo apt install -y software-properties-common gnupg && \
     sudo add-apt-repository ppa:git-core/ppa && \
     sudo apt install -y git openssh-client && \
-    git config --global --add safe.directory '*' && \
+    git config --global --add safe.directory "*" && \
     \
     # Install additional packages.
     sudo apt install -y less bash-completion openssh-client file && \
