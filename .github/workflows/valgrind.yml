@@ -3,7 +3,7 @@ name: Build Docker images with valgrind
 on:
   push:
   schedule:
-    - cron: "0 7 * * SAT"
+    - cron: "30 3 * * SAT"
   workflow_dispatch:
 
 env:

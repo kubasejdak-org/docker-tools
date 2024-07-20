@@ -3,7 +3,7 @@ name: Build base Docker images
 on:
   push:
   schedule:
-    - cron: "0 6 * * SAT"
+    - cron: "0 3 * * SAT"
   workflow_dispatch:
 
 env:
