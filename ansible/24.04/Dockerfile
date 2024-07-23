@@ -1,7 +1,7 @@
 FROM kubasejdak/base:24.04
 
 # Settings.
-ARG ANSIBLE_VERSION=2.17.2
+ARG ANSIBLE_VERSION=10.2.0
 
 ENV PIPX_HOME=/opt/pipx
 ENV PIPX_BIN_DIR=${PIPX_HOME}/bin
