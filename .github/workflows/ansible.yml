@@ -1,0 +1,51 @@
+name: Build Docker images with ansible
+
+on:
+  push:
+  schedule:
+    - cron: "30 3 * * SAT"
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ansible
+
+jobs:
+  build:
+    name: build ansible
+    runs-on: [self-hosted, heavy-build]
+    needs: []
+    strategy:
+      fail-fast: false
+      matrix:
+        IMAGE_TAG: [24.04]
+    steps:
+      - uses: actions/checkout@v4
+      - name: docker build
+        uses: kubasejdak-org/docker-build-base-action@main
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tag: ${{ matrix.IMAGE_TAG }}
+          workdir: ${{ env.IMAGE_NAME }}/${{ matrix.IMAGE_TAG }}
+
+  check-all-ansible:
+    runs-on: [self-hosted, heavy-build]
+    needs: build
+    steps:
+      - run: echo "Success"
+
+  deploy:
+    name: deploy ansible
+    runs-on: [self-hosted, heavy-build]
+    if: github.ref_name == 'main'
+    needs: check-all-ansible
+    strategy:
+      matrix:
+        IMAGE_TAG: [24.04]
+    steps:
+      - name: docker push
+        uses: kubasejdak-org/docker-push-action@main
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          image: ${{ env.IMAGE_NAME }}
+          tag: ${{ matrix.IMAGE_TAG }}
