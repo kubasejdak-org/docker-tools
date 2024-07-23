@@ -8,7 +8,7 @@ ENV PIPX_BIN_DIR=${PIPX_HOME}/bin
 ENV PATH=${PIPX_BIN_DIR}:${PATH}
 
 # Install python3 and pipx.
-RUN sudo apt update & \
+RUN sudo apt update && \
     sudo apt install -y python3 python3-pip python3-venv python-is-python3 && \
     sudo -H pip config set global.break-system-packages true && \
     sudo mkdir -p -m 777 ${PIPX_HOME} && \
