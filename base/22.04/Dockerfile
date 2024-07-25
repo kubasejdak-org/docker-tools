@@ -23,10 +23,15 @@ RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${C
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 ENV HISTFILE=""
+ENV LC_ALL=en_US.UTF-8
 ENV USER=${USERNAME}
 
-# Install git and SSH client.
-RUN sudo apt install -y software-properties-common gnupg && \
+# Configure locales.
+RUN sudo apt install -y locales && \
+    sudo locale-gen en_US.UTF-8 && \
+    \
+    # Install git and SSH client.
+    sudo apt install -y software-properties-common gnupg && \
     sudo add-apt-repository ppa:git-core/ppa && \
     sudo apt install -y git openssh-client && \
     sudo apt remove -y software-properties-common gnupg && \
