@@ -38,7 +38,7 @@ RUN sudo apt install -y locales && \
     sudo git config --global --add safe.directory '*' && \
     \
     # Install additional packages.
-    sudo apt install -y less bash-completion openssh-client file && \
+    sudo apt install -y less bash-completion openssh-client file wget && \
     \
     # Create common project directories.
     sudo mkdir -p -m 777 /var/log/ks
