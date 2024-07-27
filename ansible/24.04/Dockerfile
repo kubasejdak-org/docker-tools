@@ -17,7 +17,7 @@ RUN sudo apt update && \
     \
     # Install ansible and related tools.
     pipx install --include-deps ansible==${ANSIBLE_VERSION} && \
-    pipx install ansible-lint && \
+    pipx inject --include-apps ansible ansible-lint && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
