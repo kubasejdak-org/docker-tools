@@ -1,7 +1,7 @@
 FROM kubasejdak/base:24.04
 
 # Settings.
-ARG ANSIBLE_VERSION=10.2.0
+ARG ANSIBLE_VERSION=10.3.0
 
 # Install python3.
 RUN sudo apt update && \
@@ -9,7 +9,7 @@ RUN sudo apt update && \
     sudo -H pip config set global.break-system-packages true && \
     \
     # Install ansible and related tools.
-    sudo -H pip install ansible==${ANSIBLE_VERSION} ansible-lint && \
+    sudo -H pip install ansible==${ANSIBLE_VERSION} ansible-lint cryptography passlib && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
