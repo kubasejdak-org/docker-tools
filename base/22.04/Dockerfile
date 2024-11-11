@@ -6,12 +6,15 @@ ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
+ENV TZ=Europe/Warsaw
+
 # Prepare APT for installing packages.
-RUN ln -snf /usr/share/zoneinfo/${CONTAINER_TIMEZONE} /etc/localtime && echo ${CONTAINER_TIMEZONE} > /etc/timezone && \
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     echo "APT::Install-Recommends \"false\";" >> /etc/apt/apt.conf && \
     echo "APT::Install-Suggests \"false\";" >> /etc/apt/apt.conf && \
     apt update && \
     apt upgrade -y && \
+    apt install -y tzdata && \
     \
     # Create default user.
     groupadd --gid ${USER_GID} ${USERNAME} && \
