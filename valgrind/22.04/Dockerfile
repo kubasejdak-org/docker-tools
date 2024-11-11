@@ -1,7 +1,7 @@
 FROM kubasejdak/base:22.04
 
 # Settings.
-ARG VALGRIND_VERSION=3.23.0
+ARG VALGRIND_VERSION=3.24.0
 ARG VALGRIND_URL=https://sourceware.org/pub/valgrind/valgrind-${VALGRIND_VERSION}.tar.bz2
 
 # Compile valgrind and install libc6-dbg.
