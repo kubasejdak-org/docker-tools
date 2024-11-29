@@ -12,7 +12,8 @@ RUN sudo apt update && \
     sudo -H pip install mkdocs-material==${MKDOCS_MATERIAL} \
     mkdocs-mermaid2-plugin \
     mkdocs-redirects \
-    mkdocs-rss-plugin && \
+    mkdocs-rss-plugin \
+    six && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
