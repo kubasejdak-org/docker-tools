@@ -1,7 +1,7 @@
 FROM kubasejdak/base:24.04
 
 # Settings.
-ARG MKDOCS_MATERIAL=9.5.44
+ARG MKDOCS_MATERIAL=9.5.46
 
 # Install python3.
 RUN sudo apt update && \
@@ -12,8 +12,8 @@ RUN sudo apt update && \
     sudo -H pip install mkdocs-material==${MKDOCS_MATERIAL} \
     mkdocs-mermaid2-plugin \
     mkdocs-redirects \
-    mkdocs-rss-plugin \
-    six && \
+    mkdocs-rss-plugin && \
+    sudo apt install -y python3-six && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
