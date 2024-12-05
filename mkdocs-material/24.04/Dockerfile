@@ -12,7 +12,7 @@ RUN sudo apt update && \
     sudo -H pip install mkdocs-material[imaging]==${MKDOCS_MATERIAL_VERSION} \
     mkdocs-mermaid2-plugin \
     mkdocs-redirects \
-    mkdocs-rss-plugin && \
+    mkdocs-rss-plugin \
     mike && \
     sudo apt install -y python3-pyparsing python3-six libcairo2 && \
     \
