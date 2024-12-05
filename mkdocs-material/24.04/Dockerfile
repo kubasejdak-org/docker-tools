@@ -8,7 +8,7 @@ RUN sudo apt update && \
     sudo apt install -y python3 python3-pip python3-venv python-is-python3 && \
     sudo -H pip config set global.break-system-packages true && \
     \
-    # Install material fod mkdocs and related tools.
+    # Install material for mkdocs and related tools.
     sudo -H pip install mkdocs-material[imaging]==${MKDOCS_MATERIAL_VERSION} \
     mkdocs-mermaid2-plugin \
     mkdocs-redirects \
