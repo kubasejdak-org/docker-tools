@@ -1,25 +1,10 @@
 FROM kubasejdak/base:24.04
 
-# Settings.
-ARG VALGRIND_VERSION=3.24.0
-ARG VALGRIND_URL=https://sourceware.org/pub/valgrind/valgrind-${VALGRIND_VERSION}.tar.bz2
-
-# Compile valgrind and install libc6-dbg.
+# Install valgrind.
 RUN sudo apt update && \
-    sudo apt install -y build-essential gcc && \
-    wget --no-check-certificate ${VALGRIND_URL} && \
-    tar -xf $(basename ${VALGRIND_URL}) && \
-    cd valgrind-${VALGRIND_VERSION} && \
-    ./configure && \
-    make -j$(nproc) && \
-    sudo make install && \
-    cd - && \
-    rm $(basename ${VALGRIND_URL}) && \
-    rm -rf valgrind-${VALGRIND_VERSION} && \
-    sudo apt install -y libc6-dbg && \
+    sudo apt install -y valgrind && \
     \
     # Cleanup image.
-    sudo apt remove -y build-essential gcc && \
     sudo apt autoremove -y && \
     sudo apt clean && \
     sudo rm -rf /var/lib/apt/lists/*
