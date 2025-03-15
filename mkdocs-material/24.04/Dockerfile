@@ -1,7 +1,7 @@
 FROM kubasejdak/base:24.04
 
 # Settings.
-ARG MKDOCS_MATERIAL_VERSION=9.6.5
+ARG MKDOCS_MATERIAL_VERSION=9.6.8
 
 # Install python3.
 RUN sudo apt update && \
