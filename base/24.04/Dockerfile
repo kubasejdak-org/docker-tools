@@ -31,7 +31,7 @@ RUN sudo apt install -y locales && \
     \
     # Install git and SSH client.
     sudo apt install -y git openssh-client && \
-    sudo git config --global --add safe.directory '*' && \
+    sudo git config --system --add safe.directory '*' && \
     \
     # Install additional packages.
     sudo apt install -y ca-certificates less bash-completion openssh-client file wget vim tree && \
