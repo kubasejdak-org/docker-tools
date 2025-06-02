@@ -10,11 +10,14 @@ RUN sudo apt update && \
     \
     # Install material for mkdocs and related tools.
     sudo -H pip install mkdocs-material[imaging]==${MKDOCS_MATERIAL_VERSION} \
+    mkdocs-drawio \
+    mkdocs-macros-plugin \
     mkdocs-mermaid2-plugin \
     mkdocs-redirects \
     mkdocs-rss-plugin \
-    mike && \
-    sudo apt install -y python3-pyparsing python3-six libcairo2 && \
+    mike \
+    mkdoxy && \
+    sudo apt install -y python3-pyparsing python3-six libcairo2 doxygen && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
