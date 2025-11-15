@@ -5,7 +5,7 @@ ARG MKDOCS_MATERIAL_VERSION=9.7.0
 
 # Install python3.
 RUN sudo apt update && \
-    sudo apt install -y python3 python3-pip python3-venv python-is-python3 && \
+    sudo apt install -y python-is-python3 python3 python3-pip python3-venv && \
     sudo -H pip config set global.break-system-packages true && \
     \
     # Install material for mkdocs and related tools.
@@ -17,7 +17,7 @@ RUN sudo apt update && \
     mkdocs-rss-plugin \
     mike \
     mkdoxy && \
-    sudo apt install -y python3-pyparsing python3-six libcairo2 doxygen && \
+    sudo apt install -y doxygen libcairo2 python3-pyparsing python3-six && \
     \
     # Cleanup image.
     sudo apt autoremove -y && \
