@@ -34,7 +34,7 @@ RUN sudo apt install -y locales && \
     sudo git config --system --add safe.directory '*' && \
     \
     # Install additional packages.
-    sudo apt install -y ca-certificates less bash-completion openssh-client file wget curl vim tree && \
+    sudo apt install -y ca-certificates less bash-completion openssh-client file wget curl vim tmux tree lsof bc && \
     \
     # Create common project directories.
     sudo mkdir -p -m 777 /var/log/ks
