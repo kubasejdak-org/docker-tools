@@ -5,7 +5,7 @@ ARG ANSIBLE_VERSION=12.2.0
 
 # Install python3.
 RUN sudo apt update && \
-    sudo apt install -y python3 python3-pip python3-venv python-is-python3 && \
+    sudo apt install -y python-is-python3 python3 python3-pip python3-venv && \
     sudo -H pip config set global.break-system-packages true && \
     \
     # Install ansible and related tools.
