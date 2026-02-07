@@ -23,6 +23,7 @@ USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 ENV HISTFILE=""
 ENV LC_ALL=en_US.UTF-8
+ENV PATH=/home/${USERNAME}/.local/bin:$PATH
 ENV USER=${USERNAME}
 
 # Configure locales.
