@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        IMAGE_TAG: [24.04]
+        IMAGE_TAG: [24.04, 26.04]
     steps:
       - uses: actions/checkout@v4
       - name: docker build
@@ -40,7 +40,7 @@ jobs:
     needs: check-all-ansible
     strategy:
       matrix:
-        IMAGE_TAG: [24.04]
+        IMAGE_TAG: [24.04, 26.04]
     steps:
       - name: docker push
         uses: kubasejdak-org/docker-push-action@main
