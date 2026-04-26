@@ -1,7 +1,7 @@
 FROM kubasejdak/base:26.04
 
 # Settings.
-ARG ANSIBLE_VERSION=13.5.0
+ARG ANSIBLE_VERSION=13.6.0
 
 # Install python3.
 RUN sudo apt update && \
