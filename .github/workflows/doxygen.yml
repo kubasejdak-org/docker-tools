@@ -29,9 +29,11 @@ jobs:
 
   check-all-doxygen:
     runs-on: [self-hosted, heavy-build]
+    if: always()
     needs: build
     steps:
-      - run: echo "Success"
+      - name: Check all jobs
+        run: '! echo ''${{ toJSON(needs.*.result) }}'' | grep -qE ''"(failure|cancelled|skipped)"'''
 
   deploy:
     name: deploy doxygen
