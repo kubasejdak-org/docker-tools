@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        IMAGE_TAG: [22.04, 24.04, 26.04]
+        IMAGE_TAG: [24.04, 26.04]
     steps:
       - uses: actions/checkout@v6
       - name: docker build
@@ -42,7 +42,7 @@ jobs:
     needs: check-all-base
     strategy:
       matrix:
-        IMAGE_TAG: [22.04, 24.04, 26.04]
+        IMAGE_TAG: [24.04, 26.04]
     steps:
       - name: docker push
         uses: kubasejdak-org/docker-action/push@main
