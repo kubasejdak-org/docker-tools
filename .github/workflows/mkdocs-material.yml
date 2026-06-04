@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: docker build
-        uses: kubasejdak-org/docker-build-base-action@main
+        uses: kubasejdak-org/docker-action/build-base@main
         with:
           image: ${{ env.IMAGE_NAME }}
           tag: ${{ matrix.IMAGE_TAG }}
@@ -45,7 +45,7 @@ jobs:
         IMAGE_TAG: [24.04, 26.04]
     steps:
       - name: docker push
-        uses: kubasejdak-org/docker-push-action@main
+        uses: kubasejdak-org/docker-action/push@main
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
